@@ -1,0 +1,9 @@
+{
+  "name": "bg-legal-research",
+  "version": "1.0.0",
+  "description": "Как и откъде да се търси българско право: карта на 397 закона и 27 кодекса в 20 отрасъла с линкове към lex.bg и пътища в АПИС, ръководство за търсене на законодателство (членове, наредби, редакции, законопроекти, право на ЕС) и за съдебна практика (тълкувателни решения на ВКС/ВАС, Конституционен съд, ЕСПЧ, Съд на ЕС) с правила за цитиране. Skills for researching Bulgarian law.",
+  "author": { "name": "martingalabov-jpg" },
+  "homepage": "https://github.com/martingalabov-jpg/bg-legal-research-skills",
+  "repository": "https://github.com/martingalabov-jpg/bg-legal-research-skills",
+  "keywords": ["bulgaria", "law", "legal-research", "lex.bg", "case-law"]
+}

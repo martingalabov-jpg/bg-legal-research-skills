@@ -20,12 +20,23 @@ for k, v in by.items():
     if a['branches'].get(k): out += ['**В АПИС:**'] + [f'- {x["p"]}' + (f' — {x["i"]}' if x['i'] else '') for x in a['branches'][k]]
     if v['prac']: out += [f'**Анализи в news.lex.bg** ({len(v["prac"])}, последни 8):'] + [f'- [{p["t"]}]({p["u"]})' for p in v['prac'][:8]]
     out.append('')
-for target in ['bg-legal-map', 'bg-legal-research']:
-    open(f'{H}/skills/{target}/references/bg-legal-map.md', 'w').write('\n'.join(out))
+for target in ['skills/bg-legal-map', 'perplexity/bg-legal-research']:
+    open(f'{H}/{target}/references/bg-legal-map.md', 'w').write('\n'.join(out))
 os.makedirs(f'{H}/dist', exist_ok=True)
-for s in ['bg-legal-research', 'bg-legal-map', 'bg-legislation-search', 'bg-court-decisions-search']:
-    with zipfile.ZipFile(f'{H}/dist/{s}.zip', 'w', zipfile.ZIP_DEFLATED) as z:
-        for root, _, files in os.walk(f'{H}/skills/{s}'):
-            for f in files:
-                full = os.path.join(root, f); z.write(full, os.path.relpath(full, f'{H}/skills'))
-print('built', len('\n'.join(out)), 'chars + 4 zips in dist/')
+def zipdir(out, base, parts, prefix=''):
+    with zipfile.ZipFile(out, 'w', zipfile.ZIP_DEFLATED) as z:
+        for part in parts:
+            src = os.path.join(base, part)
+            if os.path.isfile(src):
+                z.write(src, prefix + part); continue
+            for root, _, files in os.walk(src):
+                for f in files:
+                    if f == '.DS_Store': continue
+                    full = os.path.join(root, f); z.write(full, prefix + os.path.relpath(full, base))
+# 1) the plugin bundle (Perplexity Computer → Plugins, Claude): manifest at the zip root
+zipdir(f'{H}/dist/bg-legal-research-plugin.zip', H, ['.claude-plugin', 'skills', 'README.md'])
+# 2) single-skill zips (Perplexity → Skills → Upload a skill)
+zipdir(f'{H}/dist/bg-legal-research-skill.zip', f'{H}/perplexity', ['bg-legal-research'])
+for s in ['bg-legal-map', 'bg-legislation-search', 'bg-court-decisions-search']:
+    zipdir(f'{H}/dist/{s}.zip', f'{H}/skills', [s])
+print('built', len('\n'.join(out)), 'chars; dist/:', sorted(os.listdir(f'{H}/dist')))

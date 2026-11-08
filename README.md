@@ -13,10 +13,11 @@ legislation and for court decisions, and citation rules. Content is in Bulgarian
 
 | Папка | Какво е |
 |---|---|
-| `skills/bg-legal-research/` | **Един общ скил**: картата и двете ръководства. Най-лесен за качване |
+| `.claude-plugin/plugin.json` | Манифест: репото е плъгин за Perplexity Computer, Claude и Codex |
 | `skills/bg-legal-map/` | Карта по 20 отрасъла: кодекси и закони с линк към lex.bg, пътищата в АПИС, меродавният съд |
 | `skills/bg-legislation-search/` | Как се намира акт, член, наредба, редакция към минала дата, законопроект и право на ЕС |
 | `skills/bg-court-decisions-search/` | Кой съд е меродавен; тълкувателни решения, КС, ECLI, ЕСПЧ, Съдът на ЕС; как се цитира |
+| `perplexity/bg-legal-research/` | Същото като един общ скил, за Perplexity → Skills |
 | `perplexity/SPACE_INSTRUCTIONS.md` | Инструкции за Perplexity Space |
 | `data/` | Изходните данни: `lex-map.json` (актове и публикации от lex.bg) и `apis-map.json` (пътища в АПИС по отрасли) |
 | `scripts/` | Скриптове за обновяване на картата от lex.bg |
@@ -25,14 +26,18 @@ legislation and for court decisions, and citation rules. Content is in Bulgarian
 
 ## Инсталиране
 
-**Perplexity → Skills:** Create skill → Upload a skill → качи `bg-legal-research.zip` от Releases.
-Може и трите отделни архива.
+**Perplexity → Plugins (препоръчително):** импортирай плъгина директно от адреса на това репо
+`https://github.com/martingalabov-jpg/bg-legal-research-skills` или качи
+`bg-legal-research-plugin.zip` от Releases. Манифестът е в `.claude-plugin/plugin.json`.
+
+**Perplexity → Skills:** Create skill → Upload a skill → качи `bg-legal-research-skill.zip`, който е
+един общ скил. Може и трите отделни архива.
 
 **Perplexity Space:** постави `perplexity/SPACE_INSTRUCTIONS.md` в Custom instructions и качи като
 файлове `SKILL.md` от трите скила и `skills/bg-legal-map/references/bg-legal-map.md`.
 
-**Claude Code:** копирай папката на скила в `~/.claude/skills/`. Сложи или общия скил, или трите
-отделни, не и двете, за да не се дублират.
+**Claude Code:** `claude plugin install` от това репо или копирай трите папки от `skills/` в
+`~/.claude/skills/`. Не слагай заедно с тях и общия скил от `perplexity/`, защото ще се дублират.
 
 ## Обновяване на картата
 
